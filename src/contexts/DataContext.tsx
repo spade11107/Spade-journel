@@ -167,7 +167,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       const rrRatio = calcRRRatio(entry, sl, tp);
       const riskAmount = calcRiskAmount(balance, riskPct);
       const rewardAmount = calcRewardAmount(riskAmount, rrRatio);
-      const pnl = calcPnL(data.direction, entry, exit, lotSize);
+      const pnl = calcPnL(data.direction, entry, exit, lotSize, data.instrument);
       const rMultiple = calcRMultiple(pnl, riskAmount);
 
       const insertData = {

@@ -28,16 +28,38 @@ export function calcRewardAmount(
   return riskAmount * rrRatio;
 }
 
+const CONTRACT_SIZES: Record<string, number> = {
+  XAUUSD: 100,
+  BTCUSD: 1,
+  EURUSD: 100000,
+  GBPUSD: 100000,
+  USDJPY: 100000,
+  USDCAD: 100000,
+  AUDUSD: 100000,
+  NZDUSD: 100000,
+  ETHUSD: 1,
+  SPX500: 1,
+  NAS100: 1,
+  US30: 1,
+  Other: 1,
+};
+
+export function getContractSize(instrument: string): number {
+  return CONTRACT_SIZES[instrument] ?? 1;
+}
+
 export function calcPnL(
   direction: 'buy' | 'sell',
   entryPrice: number | null,
   exitPrice: number | null,
-  lotSize: number | null
+  lotSize: number | null,
+  instrument?: string
 ): number | null {
   if (entryPrice == null || exitPrice == null || lotSize == null) return null;
+  const contractSize = instrument ? getContractSize(instrument) : 1;
   const diff =
     direction === 'buy' ? exitPrice - entryPrice : entryPrice - exitPrice;
-  return diff * lotSize;
+  return diff * lotSize * contractSize;
 }
 
 export function calcRMultiple(

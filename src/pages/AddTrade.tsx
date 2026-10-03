@@ -98,7 +98,7 @@ export function AddTrade({ onNavigate, editTradeId }: AddTradeProps) {
     const rrRatio = calcRRRatio(entry, sl, tp);
     const riskAmount = calcRiskAmount(balance, riskPct);
     const rewardAmount = calcRewardAmount(riskAmount, rrRatio);
-    const pnl = calcPnL(form.direction, entry, exit, lotSize);
+    const pnl = calcPnL(form.direction, entry, exit, lotSize, form.instrument);
     const rMultiple = calcRMultiple(pnl, riskAmount);
 
     return { rrRatio, riskAmount, rewardAmount, pnl, rMultiple, balance };
